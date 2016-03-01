@@ -1,6 +1,6 @@
 {
   "name": "proton-quark-controllers",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,6 @@
     "lodash": "^4.0.0",
     "proton-quark": "^1.0.0",
     "require-all": "^2.0.0",
-    "proton-controller": "1.0.0"
+    "proton-controller": "^1.0.0"
   }
 }
