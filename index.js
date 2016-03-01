@@ -3,7 +3,6 @@
 const path = require('path')
 const Quark = require('proton-quark')
 const _ = require('lodash')
-const controllersPath = path.join(this.proton.app.path, '/controllers')
 
 
 /**
@@ -19,7 +18,7 @@ class ControllersQuark extends Quark {
 
   /**
    * @override
-   * @method validate
+   * @method configure
    * @description Ask if the proton.app.controllers object exist, if not exist
    * the method create the proton.app.controllers object
    * @author Luis Hernandez
@@ -37,11 +36,18 @@ class ControllersQuark extends Quark {
    * @author Luis Hernandez
    */
   initialize() {
-    _.forEach(controllers, (Controller, fileName) => {
+    _.forEach(this._controllers, (Controller, fileName) => {
       const controller = new Controller(this.proton)
       controller.fileName = fileName
+      controller.expose()
+      this.bindToApp(controller)
       return controller
     })
+  }
+
+  bindToApp(...args) {
+    const controller = args[0]
+    this.proton.app.controllers[controller.name] = controller
   }
 
   /**
@@ -52,6 +58,7 @@ class ControllersQuark extends Quark {
    * @return {Array} - All controllers exported values as an array
    */
   get _controllers() {
+    const controllersPath = path.join(this.proton.app.path, '/controllers')
     return require('require-all')(controllersPath)
   }
 
