@@ -39,10 +39,14 @@ class ControllersQuark extends Quark {
     _.forEach(this._controllers, (Controller, fileName) => {
       const controller = new Controller(this.proton)
       controller.fileName = fileName
-      this.proton.app.controllers[controller.name] = controller
       controller.expose()
+      this._addControllerToApp(controller)
       return controller
     })
+  }
+
+  _addControllerToApp(controller) {
+    this.proton.app.controllers[controller.name] = controller
   }
 
   /**
