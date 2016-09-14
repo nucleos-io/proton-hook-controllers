@@ -43,6 +43,7 @@ class ControllersQuark extends Quark {
       this._addControllerToApp(controller)
       return controller
     })
+    return Promise.resolve()
   }
 
   _addControllerToApp(controller) {
