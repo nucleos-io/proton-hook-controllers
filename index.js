@@ -27,6 +27,7 @@ class ControllersQuark extends Quark {
     if (!this.proton.app.controllers) {
       this.proton.app.controllers = {}
     }
+    return Promise.resolve()
   }
 
   /**
@@ -39,7 +40,6 @@ class ControllersQuark extends Quark {
     _.forEach(this._controllers, (Controller, fileName) => {
       const controller = new Controller(this.proton)
       controller.fileName = fileName
-      //controller.expose()
       this._addControllerToApp(controller)
       return controller
     })
@@ -57,7 +57,7 @@ class ControllersQuark extends Quark {
    * @return {Array} - All controllers exported values as an array
    */
   get _controllers() {
-    const controllersPath = path.join(this.proton.app.path, '/controllers')
+    const controllersPath = path.join(this.proton.app.path, '/api/controllers')
     return require('require-all')(controllersPath)
   }
 
