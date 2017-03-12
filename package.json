@@ -1,17 +1,21 @@
 {
   "name": "proton-quark-controllers",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -R spec ./test/*.js",
+    "start": "node index.js"
   },
   "author": "Nucleos",
   "license": "ISC",
   "dependencies": {
+    "chai": "^3.5.0",
     "lodash": "^4.0.0",
-    "proton-quark": "^1.0.0",
-    "require-all": "^2.0.0",
-    "proton-controller": "^1.0.0"
+    "mocha": "^3.2.0",
+    "proton-controller": "^1.0.6",
+    "proton-koa": "^3.0.2",
+    "proton-quark": "^2.0.1",
+    "require-all": "^2.0.0"
   }
 }

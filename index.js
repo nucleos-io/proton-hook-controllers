@@ -24,10 +24,11 @@ class ControllersQuark extends Quark {
    * @author Luis Hernandez
    */
   configure() {
-    if (!this.proton.app.controllers) {
-      this.proton.app.controllers = {}
-    }
-    return Promise.resolve()
+    return new Promise(resolve => {
+      if (!this.proton.app.controllers) this.proton.app.controllers = {}
+      resolve()
+    })
+
   }
 
   /**
@@ -37,13 +38,15 @@ class ControllersQuark extends Quark {
    * @author Luis Hernandez
    */
   initialize() {
-    _.forEach(this._controllers, (Controller, fileName) => {
-      const controller = new Controller(this.proton)
-      controller.fileName = fileName
-      this._addControllerToApp(controller)
-      return controller
+    return new Promise(resolve => {
+      _.forEach(this._controllers, (Controller, fileName) => {
+        const controller = new Controller(this.proton)
+        controller.fileName = fileName
+        this._addControllerToApp(controller)
+        return controller
+      })
+      resolve()
     })
-    return Promise.resolve()
   }
 
   _addControllerToApp(controller) {
@@ -60,6 +63,10 @@ class ControllersQuark extends Quark {
   get _controllers() {
     const controllersPath = path.join(this.proton.app.path, '/api/controllers')
     return require('require-all')(controllersPath)
+  }
+
+  get name() {
+    return 'proton-quark-controllers'
   }
 
 }
